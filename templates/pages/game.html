@@ -27,11 +27,16 @@
 
         <div class="monitor-right">
             
-            <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 15px; border-bottom: 2px solid #ffffff; padding-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 15px; border-bottom: 2px solid #ffffff; padding-bottom: 10px; align-items: center;">
                 <button class="btn btn-outline" onclick="showView('main-menu')" style="font-size: 0.7rem; padding: 5px 10px; border-color: #ff4b2b; color: #ff4b2b;">✕ EXIT</button>
-                <div style="display: flex; gap: 20px; font-family: 'Courier New', monospace; font-weight: bold; align-items: center;">
-                    <div style="color: #ffffff;">MOVE: <span id="move-timer" style="color: #ffffff; font-size: 1.2rem;">60</span>s</div>
-                    <div style="color: #d130eb;">GAME: <span id="game-timer" style="color: #ffffff; font-size: 1.2rem;">20:00</span></div>
+                
+                <div style="display: flex; gap: 30px; font-family: 'Courier New', monospace; font-weight: bold; align-items: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">
+                    <div style="color: #ffffff; font-size: 1.1rem;">
+                        MOVE: <span id="move-timer" style="color: #00ffff !important; font-size: 1.4rem; text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);">60</span>s
+                    </div>
+                    <div style="color: #d130eb; font-size: 1.1rem;">
+                        GAME: <span id="game-timer" style="color: #ffde59 !important; font-size: 1.4rem; text-shadow: 0 0 8px rgba(255, 222, 89, 0.6);">20:00</span>
+                    </div>
                 </div>
                 <button class="btn" onclick="startGame(currentMode)" style="font-size: 0.7rem; padding: 5px 10px;">↻ RESTART</button>
             </div>
@@ -50,12 +55,11 @@
                 </div>
             </div>
 
-            <div class="huge-score-display">
-                <span id="p-score-huge" class="score-text blue" style="color: #ffffff;">0</span>
-                <span class="vs-divider" style="color: #cccccc;">VS</span>
-                <span id="ai-score-huge" class="score-text red" style="color: #ffffff;">0</span>
+            <div class="huge-score-display" style="display: flex; justify-content: center; align-items: center; gap: 30px; margin: 40px 0;">
+                <span id="p-score-huge" class="score-text blue" style="color: #ffffff !important; text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 3px 5px 10px rgba(0, 0, 0, 0.6);">0</span>
+                <span class="vs-divider" style="color: #ffffff !important; font-size: 3rem; font-style: italic; font-weight: bold; text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.6);">vs</span>
+                <span id="ai-score-huge" class="score-text red" style="color: #ffffff !important; text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 3px 5px 10px rgba(0, 0, 0, 0.6);">0</span>
             </div>
-
             <div id="history-panel" style="width: 90%; height: 120px; background: #828181; border: 1px solid #dedbdb; border-radius: 5px; padding: 10px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.7rem; margin-top: auto; margin-bottom: 10px; color: #333333;">
                 <div id="history-list" style="display: flex; flex-direction: column; gap: 3px;"></div>
             </div>
