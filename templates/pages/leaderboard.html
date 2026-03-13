@@ -1,0 +1,17 @@
+<div id="leaderboard-view" class="view hidden">
+    <h1 class="logo-text">TOP PLAYERS</h1>
+    
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <button id="lb-tab-ai" class="btn active" onclick="switchLeaderboardTab('ai')" style="padding: 10px 20px; font-size: 0.8rem;">VS AI</button>
+        <button id="lb-tab-pvp" class="btn btn-outline" onclick="switchLeaderboardTab('pvp')" style="padding: 10px 20px; font-size: 0.8rem;">PLAYER VS PLAYER</button>
+    </div>
+
+    <table style="width: 80%; max-width: 500px; border-collapse: collapse;">
+        <thead style="border-bottom: 1px solid var(--neon-blue); color: var(--neon-blue);">
+            <tr><th style="padding:10px;">RANK</th><th>NAME</th><th>SCORE</th></tr>
+        </thead>
+        <tbody id="leaderboard-body" style="text-align: center;"></tbody>
+    </table>
+    
+    <button class="btn btn-outline" onclick="showView('main-menu')" style="margin-top: 30px;">RETURN</button>
+</div>

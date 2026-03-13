@@ -1,0 +1,322 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+.light-login-wrapper {
+    background-color: #ffffff !important;
+    width: 100vw;
+    height: 100vh;
+    
+    /* Flexbox centering */
+    display: flex !important; /* Ensure it stays flex even if other styles conflict */
+    justify-content: center;   /* Horizontal centering */
+    align-items: center;       /* Vertical centering */
+    
+    font-family: 'Poppins', 'Inter', sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    margin: 0;                 /* Remove any default browser margins */
+    padding: 0;
+    overflow: hidden;          /* Prevents scrollbars from shifting the center */
+}
+
+/* Ensure the hidden class doesn't just hide, but removes from flow */
+.hidden {
+    display: none !important;
+}
+
+    /* =========================================
+       ANIMATED MATH BACKGROUND
+    ========================================= */
+    .math-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 0; /* Floats over the white background, but behind the card */
+        margin: 0;
+        padding: 0;
+    }
+
+    .math-bg li {
+        position: absolute;
+        display: block;
+        list-style: none;
+        width: 40px;
+        height: 40px;
+        /* A slightly darker neon blue so it shows up perfectly on the white screen */
+        color: rgba(0, 0, 0, 0.35); 
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        bottom: -100px;
+        animation: floatMath 15s linear infinite;
+    }
+
+    .math-bg li:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 45px; }
+    .math-bg li:nth-child(2) { left: 25%; animation-delay: 2s; font-size: 55px; animation-duration: 17s; }
+    .math-bg li:nth-child(3) { left: 40%; animation-delay: 4s; font-size: 35px; animation-duration: 19s; }
+    .math-bg li:nth-child(4) { left: 60%; animation-delay: 0s; font-size: 60px; }
+    .math-bg li:nth-child(5) { left: 75%; animation-delay: 3s; font-size: 40px; animation-duration: 14s; }
+    .math-bg li:nth-child(6) { left: 90%; animation-delay: 6s; font-size: 50px; animation-duration: 12s; }
+    .math-bg li:nth-child(7) { left: 15%; animation-delay: 7s; font-size: 30px; animation-duration: 16s; }
+    .math-bg li:nth-child(8) { left: 50%; animation-delay: 8s; font-size: 45px; animation-duration: 20s; }
+    .math-bg li:nth-child(9) { left: 80%; animation-delay: 1s; font-size: 55px; animation-duration: 15s; }
+    .math-bg li:nth-child(10){ left: 35%; animation-delay: 5s; font-size: 40px; animation-duration: 18s; }
+
+    @keyframes floatMath {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* =========================================
+       THE LOGIN CARD
+    ========================================= */
+    .login-box {
+        background: #ffffff; 
+        padding: 40px 30px;
+        border-radius: 20px;
+        /* A premium, soft shadow so the white card pops off the white background */
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); 
+        width: 85%;
+        max-width: 350px;
+        display: flex;
+        flex-direction: column;
+        z-index: 10; /* Keeps the login box above the floating math */
+        position: relative;
+    }
+
+    .login-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #222222;
+        margin-bottom: 2.5rem;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .input-group { margin-bottom: 1.5rem; }
+
+    .input-group label {
+        font-size: 0.8rem;
+        color: #555555;
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+        text-align: left;
+    }
+
+    .input-field {
+        display: flex;
+        align-items: center;
+        border-bottom: 2px solid #dddddd;
+        padding: 5px 0 10px 0;
+        transition: border-color 0.3s;
+    }
+
+    .input-field:focus-within { border-bottom-color: #d130eb; }
+
+    .input-field i {
+        color: #aaaaaa;
+        font-size: 1.1rem;
+        margin-right: 12px;
+    }
+
+    .input-field input {
+        border: none;
+        outline: none;
+        background: transparent;
+        width: 100%;
+        font-size: 0.95rem;
+        color: #333333;
+    }
+
+    .input-field input::placeholder { color: #aaaaaa; }
+
+    .forgot-pass {
+        text-align: right;
+        font-size: 0.8rem;
+        color: #777777;
+        text-decoration: none;
+        margin-top: -5px;
+        margin-bottom: 2.5rem;
+        display: block;
+        transition: color 0.3s;
+    }
+    
+    .forgot-pass:hover { color: #d130eb; }
+
+    .gradient-login-btn {
+        background: linear-gradient(90deg, #38e0e6, #d130eb);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 15px;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(209, 48, 235, 0.3);
+        margin-bottom: 2.5rem;
+        transition: opacity 0.3s, transform 0.2s;
+    }
+
+    .gradient-login-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    .social-label {
+        text-align: center;
+        font-size: 0.85rem;
+        color: #777777;
+        margin-bottom: 1rem;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 4rem;
+    }
+
+    .social-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: transform 0.2s;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .social-btn:hover { transform: scale(1.1); }
+
+    .social-btn.fb { background-color: #3b5998; }
+    .social-btn.go { background-color: #ea4335; }
+
+    .signup-footer { text-align: center; }
+
+    .signup-link {
+        display: block;
+        color: #333333;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        margin-top: 5px;
+        transition: color 0.2s;
+    }
+
+    .signup-link:hover { color: #d130eb; }
+</style>
+
+<div id="login-view" class="view hidden light-login-wrapper">
+    
+    <ul class="math-bg">
+        <li>+</li>
+        <li>&minus;</li>
+        <li>&times;</li>
+        <li>&divide;</li>
+        <li>=</li>
+        <li>%</li>
+        <li>&pi;</li>
+        <li>+</li>
+        <li>&times;</li>
+        <li>&minus;</li>
+    </ul>
+
+    <div class="login-box">
+        <h1 class="login-title">Login</h1>
+
+        <div class="input-group">
+            <label>Username</label>
+            <div class="input-field">
+                <i class="fa-regular fa-user"></i>
+                <input type="text" id="login-username" placeholder="Type your username">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <div class="input-field">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="login-pin" placeholder="Type your password" maxlength="4">
+            </div>
+        </div>
+
+        <a href="#" class="forgot-pass">Forgot password?</a>
+
+        <button class="gradient-login-btn" onclick="attemptLogin()">LOGIN / REGISTER</button>
+        
+        <p id="login-msg" style="color: #ff4b2b; text-align: center; font-weight: bold; font-size: 0.9rem; min-height: 20px; margin-top: -20px; margin-bottom: 20px;"></p>
+
+        <p class="social-label">Or Sign Up Using</p>
+        <div class="social-icons">
+            <a href="#" class="social-btn fb"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-btn go"><i class="fa-brands fa-google"></i></a>
+        </div>
+
+        <div class="signup-footer">
+            <p class="social-label">Or Sign Up Using</p>
+            <a href="#" class="signup-link" onclick="showView('signup-view')">SIGN UP</a>
+        </div>
+    </div>
+</div>
+<div id="signup-view" class="view hidden light-login-wrapper">
+    
+    <ul class="math-bg">
+        <li>+</li>
+        <li>&minus;</li>
+        <li>&times;</li>
+        <li>&divide;</li>
+        <li>=</li>
+        <li>%</li>
+        <li>&pi;</li>
+        <li>+</li>
+        <li>&times;</li>
+        <li>&minus;</li>
+    </ul>
+
+    <div class="login-box">
+        <h1 class="login-title">Sign Up</h1>
+
+        <div class="input-group">
+            <label>Choose Username</label>
+            <div class="input-field">
+                <i class="fa-regular fa-user"></i>
+                <input type="text" id="signup-username" placeholder="Enter a unique username">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>Create Password</label>
+            <div class="input-field">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="signup-pin" placeholder="Create a 4-digit PIN" maxlength="4">
+            </div>
+        </div>
+
+        <div style="margin-bottom: 2.5rem;"></div>
+
+        <button class="gradient-login-btn" onclick="attemptSignup()">CREATE ACCOUNT</button>
+        
+        <p id="signup-msg" style="color: #ff4b2b; text-align: center; font-weight: bold; font-size: 0.9rem; min-height: 20px; margin-top: -20px; margin-bottom: 20px;"></p>
+
+        <p class="social-label">Or Sign Up Using</p>
+        <div class="social-icons">
+            <a href="#" class="social-btn fb"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-btn go"><i class="fa-brands fa-google"></i></a>
+        </div>
+
+        <div class="signup-footer">
+            <p class="social-label">Already have an account?</p>
+            <a href="#" class="signup-link" onclick="showView('login-view')">LOGIN INSTEAD</a>
+        </div>
+    </div>
+</div>

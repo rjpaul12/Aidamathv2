@@ -1,0 +1,109 @@
+<div id="main-menu" class="view hidden" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; width: 100vw; position: fixed; top: 0; left: 0; background: transparent;">
+    
+    <div id="user-profile-badge" style="position: absolute; top: 20px; left: 20px; text-align: left; background: #ffffff; padding: 10px 20px; border-left: 4px solid #d130eb; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: none; border-radius: 0 8px 8px 0;">
+        <div style="color: #222222; font-weight: 800; font-size: 1.2rem; text-transform: uppercase; font-family: 'Inter', sans-serif;" id="profile-name">GUEST</div>
+        <div style="font-size: 0.85rem; color: #555555; margin-top: 5px; font-weight: 600;">
+            WINS: <span id="profile-wins" style="color: #00d2ff; font-weight: bold;">0</span> | 
+            LOSS: <span id="profile-losses" style="color: #ff4b2b; font-weight: bold;">0</span>
+        </div>
+    </div>
+
+    <h1 class="logo-text" style="font-size: 5rem; margin-bottom: 50px;">AIDAMATH</h1>
+    
+    <div class="menu-buttons">
+        <button class="btn" onclick="openSetup('ai')" style="width: 250px; padding: 15px; font-size: 1.2rem;">PLAY GAME</button>
+        <button class="btn btn-outline" onclick="loadLeaderboard()" style="width: 250px; padding: 15px; font-size: 1.2rem;">LEADERBOARDS</button>
+    </div>
+</div>
+
+<div id="side-menu">
+    <h2 style="color: #222222; text-align: center; font-weight: 800; font-family: 'Inter', sans-serif;">MENU</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px; padding: 20px;">
+        <button class="btn btn-outline" onclick="restartGame()">RESTART MATCH</button>
+        <button class="btn btn-outline" onclick="toggleSound()">SOUND: <span id="sound-status">ON</span></button>
+        <button class="btn btn-outline" onclick="showView('main-menu'); toggleSideMenu()">MAIN MENU</button>
+        <button class="btn" style="background: #ff4b2b; color: white; box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);" onclick="logout()">LOGOUT</button>
+    </div>
+</div>
+
+<div class="menu-toggle" onclick="toggleSideMenu()">
+    <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+</div>
+
+<div id="mode-select-popup" class="modal hidden">
+    <div class="modal-content light-card">
+        <h2 style="color: #222222; font-weight: 800; font-family: 'Inter', sans-serif;">SELECT OPPONENT</h2>
+        <hr style="border-color: #eeeeee; margin-bottom: 20px;">
+        <button class="btn" onclick="openSetup('ai')" style="width: 100%; margin-bottom: 15px;">PLAYER VS COMPUTER</button>
+        <button class="btn btn-outline" onclick="openSetup('pvp')" style="width: 100%;">PLAYER VS PLAYER</button>
+        <br><br>
+        <button onclick="document.getElementById('mode-select-popup').classList.add('hidden')" style="color: #777777; background: none; border: none; cursor: pointer; font-weight: bold;">[ CANCEL ]</button>
+    </div>
+</div>
+
+<div id="setup-popup" class="modal hidden">
+    <div class="modal-content light-card" style="padding: 0; overflow: hidden; max-width: 400px;">
+        <div style="background: #f8f9fa; padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eeeeee;">
+            <h2 id="setup-title" style="margin: 0; color: #222222; font-family: 'Inter', sans-serif; font-weight: 800;">VS COMPUTER</h2>
+            <button onclick="closeSetupPopup()" style="background: none; border: none; color: #ff4b2b; font-size: 1.5rem; cursor: pointer; line-height: 1;">×</button>
+        </div>
+
+        <div style="padding: 20px; color: #444444; font-family: 'Inter', sans-serif; font-size: 0.9rem;">
+            
+            <div class="setup-row" style="margin-bottom: 20px; border-bottom: none;">
+                <div style="display:flex; gap:10px; width:100%;">
+                    <input type="text" id="setup-p1" class="light-input" placeholder="PLAYER 1 NAME">
+                    <input type="text" id="setup-p2" class="light-input hidden" placeholder="PLAYER 2 NAME">
+                </div>
+            </div>
+
+            <div class="setup-row">
+                <span class="label" style="font-weight: 600;">Difficulty</span>
+                <div class="selector" style="display: flex; align-items: center; gap: 10px;">
+                    <button class="arrow-btn" onclick="cycleSetting('difficulty', -1)">◀</button>
+                    <span id="display-difficulty" class="value-display" style="min-width: 160px; text-align: center; white-space: nowrap; font-weight: bold; color: #222222;">Easy (Counting)</span>
+                    <button class="arrow-btn" onclick="cycleSetting('difficulty', 1)">▶</button>
+                </div>
+            </div>
+
+            <div id="row-first-move" class="setup-row">
+                <span class="label" style="font-weight: 600;">First Move</span>
+                <div class="toggle-group">
+                    <button id="move-player" class="toggle-btn active" onclick="setFirstMove('player')">You</button>
+                    <button id="move-ai" class="toggle-btn" onclick="setFirstMove('ai')">AI</button>
+                    <button id="move-random" class="toggle-btn" onclick="setFirstMove('random')">Rnd</button>
+                </div>
+            </div>
+            
+            <div class="setup-row">
+                <span class="label" style="font-weight: 600;">Game Time</span>
+                <div class="toggle-group">
+                    <button id="gt-0" class="toggle-btn" onclick="setGameTime(0)">Off</button>
+                    <button id="gt-10" class="toggle-btn" onclick="setGameTime(10)">10m</button>
+                    <button id="gt-20" class="toggle-btn active" onclick="setGameTime(20)">20m</button>
+                </div>
+            </div>
+            
+            <div class="setup-row">
+                <span class="label" style="font-weight: 600;">Turn Time</span>
+                <div class="toggle-group">
+                    <button id="tt-30" class="toggle-btn" onclick="setTurnTime(30)">30s</button>
+                    <button id="tt-45" class="toggle-btn" onclick="setTurnTime(45)">45s</button>
+                    <button id="tt-60" class="toggle-btn active" onclick="setTurnTime(60)">60s</button>
+                </div>
+            </div>
+            
+            <div class="setup-row" style="border-bottom: none;">
+                <span class="label" style="font-weight: 600;">Learning Mode</span>
+                <div class="toggle-group">
+                    <button id="learn-off" class="toggle-btn" onclick="setLearningMode(false)">OFF</button>
+                    <button id="learn-on" class="toggle-btn active" onclick="setLearningMode(true)">ON</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 20px; text-align: center; border-top: 1px solid #eeeeee; background: #f8f9fa;">
+            <button onclick="confirmSetupAndPlay()" class="btn" style="margin-bottom: 0; width: 100%;">PLAY MATCH!</button>
+        </div>
+    </div>
+</div>

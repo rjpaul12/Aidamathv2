@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIDAMATH | Projector View</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/board.css') }}">
+    
+    <style>
+        body { 
+            display: flex; justify-content: center; align-items: center; 
+            background-color: #000 !important; margin: 0; overflow: hidden;
+        }
+        #board {
+            display: grid; /* <--- THIS IS THE MAGIC WORD! */
+            background-color: #0a0e14; /* Gives the empty board a nice dark base */
+            width: 95vmin; height: 95vmin;
+            grid-template-columns: repeat(8, 1fr); 
+            grid-template-rows: repeat(8, 1fr);
+            border: 8px solid var(--neon-blue); 
+            box-shadow: 0 0 50px rgba(0, 210, 255, 0.4);
+        }
+        .cell { width: 100%; height: 100%; }
+        .cell-operator { font-size: 3vmin; }
+    </style>
+</head>
+<body>
+    
+    <div id="board"></div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/board.js') }}"></script>
+    
+    <script>
+        // --- 1. CRASH PREVENTERS ---
+        // The projector has no timers or popups. We must neutralize these functions 
+        // so board.js doesn't crash when it tries to find them!
+        window.resetMoveTimer = () => {};
+        window.stopTimers = () => {};
+        window.checkWinner = (winner) => { return winner ? true : false; };
+        
+        // --- 2. WAKE UP THE PROJECTOR ---
+        gameActive = true;
+        currentMode = 'ai';
+        console.log("Projector initialized and ready for AI combat!");
+
+        // --- 3. TELEPATHY SYNC & AI FAILSAFE ---
+        let lastHistory = -1;
+        
+        setInterval(() => {
+            fetch('/api/state')
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) return;
+                
+                if (data.history && data.history.length !== lastHistory) {
+                    lastHistory = data.history.length;
+                    
+                    if (data.mode) currentMode = data.mode;
+                    gameActive = !data.winner; 
+                    
+                    renderBoard(data.board, data.operators, data.meta);
+                    
+                    // FAILSAFE: If the player moves on the projector, force the AI to reply!
+                    if (currentMode === 'ai' && data.turn === 'ai' && !data.winner) {
+                        console.log("Projector is triggering the AI...");
+                        setTimeout(triggerAIMove, 500);
+                    }
+                }
+            })
+            .catch(err => console.error("Projector Sync Error:", err));
+        }, 500);
+    </script>
+</body>
+</html>

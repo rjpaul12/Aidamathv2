@@ -1,0 +1,76 @@
+/* =========================================
+   GLOBAL LIGHT THEME OVERRIDE
+========================================= */
+body {
+    background-color: #ffffff !important;
+    background-image: none !important;
+}
+
+/* Hide the old dark javascript canvas background if you have one */
+canvas {
+    display: none !important; 
+}
+
+/* Flip global text to dark gray so it's readable on white */
+body, h2, h3, p, span, .stat-label {
+    color: #222222 !important;
+}
+
+/* Make the main AIDAMATH title dark, but keep the awesome cyan neon glow! */
+h1, .logo-text {
+    color: #222222 !important;
+    text-shadow: 0 0 20px rgba(0, 210, 255, 0.8) !important;
+}
+
+/* Make sure the Player Stats box in the top left is readable */
+.profile-box, #player-profile {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(0, 210, 255, 0.5) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+    color: #222 !important;
+}
+
+/* =========================================
+   GLOBAL FLOATING MATH BACKGROUND
+========================================= */
+.math-bg {
+    position: fixed; /* Fixed so it stays perfectly in place on all screens */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -100; /* Stays behind absolutely everything */
+    margin: 0;
+    padding: 0;
+    pointer-events: none; /* Stops it from blocking clicks */
+}
+
+.math-bg li {
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 40px;
+    height: 40px;
+    color: rgba(0, 210, 255, 0.35); /* Bright neon blue operands */
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    bottom: -100px;
+    animation: floatMath 15s linear infinite;
+}
+
+.math-bg li:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 45px; }
+.math-bg li:nth-child(2) { left: 25%; animation-delay: 2s; font-size: 55px; animation-duration: 17s; }
+.math-bg li:nth-child(3) { left: 40%; animation-delay: 4s; font-size: 35px; animation-duration: 19s; }
+.math-bg li:nth-child(4) { left: 60%; animation-delay: 0s; font-size: 60px; }
+.math-bg li:nth-child(5) { left: 75%; animation-delay: 3s; font-size: 40px; animation-duration: 14s; }
+.math-bg li:nth-child(6) { left: 90%; animation-delay: 6s; font-size: 50px; animation-duration: 12s; }
+.math-bg li:nth-child(7) { left: 15%; animation-delay: 7s; font-size: 30px; animation-duration: 16s; }
+.math-bg li:nth-child(8) { left: 50%; animation-delay: 8s; font-size: 45px; animation-duration: 20s; }
+.math-bg li:nth-child(9) { left: 80%; animation-delay: 1s; font-size: 55px; animation-duration: 15s; }
+.math-bg li:nth-child(10){ left: 35%; animation-delay: 5s; font-size: 40px; animation-duration: 18s; }
+
+@keyframes floatMath {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}

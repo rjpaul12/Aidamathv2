@@ -1,0 +1,47 @@
+/* =========================================
+   GAME BOARD, CHIPS & HIGHLIGHTS
+   ========================================= */
+#board {
+    display: grid;
+    grid-template-columns: repeat(8, min(5vh, 40px));
+    grid-template-rows: repeat(8, min(5vh, 40px));
+    border: 4px solid var(--neon-blue);
+    background: #e2e8f0;
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
+}
+
+.cell { position: relative; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.light { background: #edf2f7; }
+.dark { background: #cbd5e0; }
+
+.cell-operator {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 1.5rem; color: rgba(0, 0, 0, 0.3); font-weight: 900; pointer-events: none; z-index: 0; 
+}
+
+.chip {
+    width: 80%; height: 80%; border-radius: 50%; display: flex;
+    justify-content: center; align-items: center; font-weight: 900;
+    font-size: 1.2rem; box-shadow: 0 5px 10px rgba(0,0,0,0.5); position: relative; z-index: 10;
+}
+.chip.player { background: radial-gradient(circle at 30% 30%, #4facfe, #00f2fe); color: #002; border: 2px solid white; }
+.chip.ai { background: radial-gradient(circle at 30% 30%, #ff9a9e, #fecfef); color: #550000; border: 2px solid white; box-shadow: 0 0 10px var(--neon-red); }
+
+.chip.king {
+    border: 3px solid #ffd700 !important; box-shadow: 0 0 15px #ffd700, inset 0 0 10px #ffd700;
+    transform: scale(1.05); animation: kingPulse 2s infinite alternate;
+}
+@keyframes kingPulse { from { box-shadow: 0 0 10px #ffd700; } to { box-shadow: 0 0 25px #ffd700, 0 0 5px white; } }
+
+/* Learning Mode Highlights */
+.highlight-slide { box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.6), 0 0 10px rgba(57, 255, 20, 0.4); border: 2px solid #39ff14 !important; cursor: pointer; transition: 0.2s; }
+.highlight-capture { box-shadow: inset 0 0 30px rgba(255, 0, 50, 0.6), 0 0 15px rgba(255, 0, 50, 0.5); border: 2px solid #ff0033 !important; cursor: pointer; animation: pulse-red 1.5s infinite; }
+@keyframes pulse-red { 0% { box-shadow: inset 0 0 20px rgba(255, 0, 50, 0.6); } 50% { box-shadow: inset 0 0 40px rgba(255, 0, 50, 0.9); } 100% { box-shadow: inset 0 0 20px rgba(255, 0, 50, 0.6); } }
+
+/* Mini Preview Board (In Setup) */
+.mini-board-grid { display: grid; grid-template-columns: repeat(8, 1fr); width: 240px; height: 120px; background: #111; }
+.m-cell { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+.m-cell.dark { background: rgba(0, 210, 255, 0.15); border: 1px solid rgba(0, 210, 255, 0.05); }
+.m-cell.light { background: #000; }
+.m-chip { width: 22px; height: 22px; border-radius: 50%; font-size: 0.6rem; font-weight: 900; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.8); }
+.m-chip.blue { background: radial-gradient(circle at 30% 30%, #4facfe, #00f2fe); color: #002; box-shadow: 0 0 8px var(--neon-blue); }
